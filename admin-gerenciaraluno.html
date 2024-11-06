@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard - Sistema Educacional</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="jscad.js/aluno.js"></script>
+  <style>
+   /* Define o tamanho da fonte e deixa os links em negrito */
+a {
+  font-size: 12px; /* Define o tamanho da fonte para todos os links */
+  font-weight: bold; /* Deixa o texto em negrito */
+  color: #007bff; /* Define a cor do texto para preto (pode ajustar conforme necessário) */
+  text-decoration: none; /* Remove o sublinhado */
+}
+
+a:hover {
+  color: #143559; /* Altera a cor ao passar o mouse (opcional) */
+  text-decoration: underline; /* Adiciona o sublinhado ao passar o mouse */
+}
+
+/* Estilos existentes */
+.row.content {
+  height: 550px;
+}
+
+.sidenav {
+  background-color: #f1f1f1;
+  height: 190%;
+}
+
+@media screen and (max-width: 767px) {
+  .row.content {
+    height: auto;
+  }
+}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="admin-menu.html">Home</a></li>
+        <li class="active"><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+        <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+        <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+        <li ><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
+        <li ><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
+        <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
+        <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
+        <li><a href="#">Efetuar Matrícula</a></li>
+        <li><a href="#">Definir Grade Curricular</a></li>
+        <li><a href="#">Alocar Turma</a></li>
+        <li><a href="#">Gerenciar Compra de Material</a></li>
+        <li><a href="#">Controlar Estoque</a></li>
+        <li><a href="#">Efetuar Baixa</a></li>
+        <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+        <li><a href="#">Relatórios Gerais</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+        <ul class="nav nav-pills nav-stacked">
+           <a href="perfil.html" style="font-size: 19px;">
+          <i class="fas fa-user-circle" style="font-size: 20px;"></i> Perfil
+        </a>
+          <br><br>
+        <li><a href="admin-menu.html">Home</a></li>
+        <li class="active"><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+        <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+        <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+        <li ><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
+        <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
+        <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
+        <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
+        <li><a href="#section9">Efetuar Matrícula</a></li>
+        <li><a href="#section10">Definir Grade Curricular</a></li>
+        <li><a href="#section11">Alocar Turma</a></li>
+        <li><a href="#section12">Gerenciar Compra de Material</a></li>
+        <li><a href="#section13">Controlar Estoque</a></li>
+        <li><a href="#section14">Efetuar Baixa</a></li>
+        <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+        <li><a href="#section15">Relatórios Gerais</a></li>
+      </ul><br>
+    </div>
+    <br>
+    <div class="col-sm-9">
+      <div class="container mt-4">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar">
+          </div>
+          <div class="col-md-6 text-end">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">Cadastrar Novo Aluno</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Idade</th>
+              <th scope="col">Turma</th>
+              <th scope="col">Email</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="alunos">
+            <!-- Alunos serão adicionados aqui -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Aluno</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="cadastroForm">
+          <!-- Formulário de Cadastro -->
+          <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+          </div>
+          <div class="form-group">
+            <label for="idade">Idade:</label>
+            <input type="number" class="form-control" id="idade" name="idade" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="foto">Foto:</label>
+            <input type="file" class="form-control-file" id="foto" name="foto">
+          </div>
+          <div class="form-group">
+            <label for="cpf">CPF:</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" required>
+          </div>
+          <div class="form-group">
+            <label for="rg">RG:</label>
+            <input type="text" class="form-control" id="rg" name="rg" required>
+          </div>
+          <div class="form-group">
+            <label for="serie">Turma</label>
+            <select id="serie" name="serie" class="form-control" required>
+              <option value="">Selecione a Turma</option>
+              <!-- As opções serão preenchidas com as séries existentes -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="responsavel_nome">Nome do Responsável:</label>
+            <input type="text" class="form-control" id="responsavel_nome" name="responsavel_nome" required>
+          </div>
+          <div class="form-group">
+            <label for="responsavel_cpf">CPF do Responsável:</label>
+            <input type="text" class="form-control" id="responsavel_cpf" name="responsavel_cpf" required>
+          </div>
+          <div class="form-group">
+            <label for="responsavel_rg">RG do Responsável:</label>
+            <input type="text" class="form-control" id="responsavel_rg" name="responsavel_rg" required>
+          </div>
+          <div class="form-group">
+            <label for="responsavel_telefone">Telefone do Responsável:</label>
+            <input type="text" class="form-control" id="responsavel_telefone" name="responsavel_telefone" required>
+          </div>
+          <div class="form-group">
+            <label for="responsavel_email">Email do Responsável:</label>
+            <input type="email" class="form-control" id="responsavel_email" name="responsavel_email" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" id="salvarAluno">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

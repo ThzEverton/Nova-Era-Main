@@ -1,0 +1,26 @@
+/* Define estilos para os carrosséis */
+.swiper {
+    width: 70%; /* Definindo a largura */
+    max-width: 600px; /* Largura máxima */
+    aspect-ratio: 16/9; /* Proporção de aspecto */
+    margin: auto; /* Centraliza horizontalmente */
+    margin-bottom: 25px; /* Espaçamento inferior */
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px; /* Mesma borda arredondada */
+}
+
+.swiper {
+    --swiper-theme-color:#224bcf;
+    --swiper-pagination-bullet-size: 10px;
+    --swiper-pagination-bullet-inactive-color: #0400ff;
+    --swiper-pagination-bullet-inactive-opacity: 0.4;
+}
+
+.swiper:hover {
+    --swiper-theme-color: #04207c;
+}

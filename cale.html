@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Era | HOME</title>
+    <link rel="shortcut icon" type="images" href="im">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/calendario.css">
+
+</head>
+  <style>
+    .heading {
+  background: url(images/heading-bg.png) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+  
+  </style>
+  <body>
+    <!-- header section starts  -->
+
+
+    <header class="header">
+      <a href="index.html" class="logo"> <i class="fas fa-user-graduate"></i> Nova Era </a>
+      <div id="menu-btn" class="fas fa-bars"></div>
+
+      <nav class="navbar">
+          <ul>
+              <li><a href="index.html">HOME</a></li>
+              <li><a href="ensinofundamental.html">ENSINO FUNDAMENTAL</a></li>
+              <li><a href="cale.html">AGENDA</a></li>
+              <li><a href="Login.html">LOGIN</a></li>
+          
+          </ul>
+      </nav>
+  </header>
+  <section class="heading">
+    <h3>Nova Era</h3>
+    
+    <p style="text-align: left;"> <a href="home.html">home >></a>Agenda </p>
+  </section>
+    <div id="tudo">
+<div  id="container">
+    <div id="cabecalho">
+      <div id="monthDisplay"></div>
+
+      <div>
+        <button id="backButton">Voltar</button>
+        <button id="nextButton">Próximo</button>
+      </div>
+        
+    </div>
+
+    <div id="weekdays">
+      <div>Domingo</div>
+      <div>Segunda-feira</div>
+      <div>Terça-feira</div>
+      <div>Quarta-feira</div>
+      <div>Quinta-feira</div>
+      <div>Sexta-feira</div>
+      <div>Sábado</div>
+    </div>
+
+
+    <!-- div dinamic -->
+    <div id="calendar" ></div>
+
+ 
+</div>
+<br>
+<div id="newEventModal">
+ <!-- <h2>New Evente</h2> -->
+
+  
+
+  <button id="saveButton"> xx</button>
+  <button id="cancelButton">xx</button>
+</div>
+
+<div id="deleteEventModal">
+
+
+  <div id="eventText"></div><br>
+
+
+  <button id="deleteButton">xx</button>
+  <button id="closeButton">xx</button>
+</div>
+
+<div id="modalBackDrop"></div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br>
+<!-- footer section starts  -->
+
+<section class="footer">
+
+  <div class="box-container">
+
+    <div class="box">
+      <h3>explore</h3>
+      <a href="home.html"> <i class="fas fa-arrow-right"></i> HOME </a>
+      <a href="about.html"> <i class="fas fa-arrow-right"></i> Ensino Fundamental </a>
+      <a href="course-1.html"> <i class="fas fa-arrow-right"></i> Agenda </a>
+      <a href=""> <i class="fas fa-arrow-right"></i> Login</a>
+  </div>
+
+      <div class="box">
+          <h3>Follow US</h3>
+          <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+          <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+          <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
+          <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+          <a href="https://www.youtube.com/channel/UCXxTe5lB_fjn1H5azGBgWDw"> <i class="fab fa-youtube"></i> youtube </a>
+          <a href="#"> <i class="fab fa-github"></i> github </a>
+      </div>
+
+  </div>
+
+  <div class="credit"> created by <span></span> |  </div>
+
+</section>
+
+<script src="js/calendario.js"></script>
+</body>
+</html>

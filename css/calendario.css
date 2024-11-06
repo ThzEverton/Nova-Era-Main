@@ -1,0 +1,213 @@
+html{
+
+
+    --body-color:#FFFCFF ;
+  
+    --header-color:#d36c6c;
+  
+    --header-button:#92a1d1;
+  
+    --color-weekdays: #247BA0;
+    
+    --box-shadow: #CBD4C2;
+  
+    --hover: #e8faed;
+  
+    --current-day:#e8f4fa;
+  
+    --event-color: #58bae4;
+  
+    --modal-event: #e8f4fa;
+  
+  
+   --color-day:white;
+    
+  
+  }
+  
+  #tudo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+  button {
+    width: 75px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: transparent; /* torna o botão transparente */
+  }
+  
+
+#cabecalho {
+    padding: 10px;
+    color: var(--header-color);
+    font-size: 26px;
+    font-family: sans-serif;
+  
+    justify-content: space-between;
+}
+
+#cabecalho button {
+    background-color: var(--header-button);
+}
+
+#container {
+    width: 770px;
+    justify-content: center;
+    align-items: center;
+}
+
+#weekdays {
+    width: 100%;
+    display: flex;
+    color: var(--color-weekdays);
+}
+
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 190%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .day {
+    width: 100px;
+    padding: 10px;
+    height: 100px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: var(--color-day);
+    margin: 5px;
+    box-shadow: 0px 0px 3px var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15%;
+  }
+  .day:hover {
+    background-color: var(--hover);
+  }
+  
+  .day + #currentDay {
+    background-color:var(--current-day);
+  }
+  .event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: var(--event-color);
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+  .padding {
+    cursor: default !important;
+    background-color: var(--body-color) !important;
+    box-shadow: none !important;
+  }
+
+/* Define estilos para cada slide dentro do carrossel  Modal para Eventos 
+  #newEventModal, #deleteEventModal {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: var(--modal-event);
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 100px;
+    left: calc(50% - 175px);
+    position: absolute;
+    font-family: sans-serif;
+  }
+  #eventTitleInput {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  #eventTitleInput.error {
+    border: 2px solid red;
+  }
+  #cancelButton, #deleteButton {
+    background-color: var(--header-color);
+  }
+  #saveButton, #closeButton {
+    background-color: var(--header-button);
+  }
+  #eventText {
+    font-size: 14px;
+  }
+  #modalBackDrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+ */
+ 
+/* inicio rodape */
+.footer {
+  background: #f5f5f5;
+}
+
+.footer .box-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(25rem, 1fr))[auto-fit];
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1.5rem;
+}
+
+.footer .box-container .box h3 {
+  font-size: 2.2rem;
+  padding: 1rem 0;
+  color: #302851;
+}
+
+.footer .box-container .box a {
+  display: block;
+  font-size: 1.4rem;
+  padding: 1rem 0;
+  color: #666;
+}
+
+.footer .box-container .box a:hover {
+  color: crimson;
+}
+
+.footer .box-container .box a:hover i {
+  padding-right: 2rem;
+}
+
+.footer .box-container .box a i {
+  color: crimson;
+  padding-right: .5rem;
+}
+
+.footer .credit {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  padding-top: 2.5rem;
+  font-size: 2rem;
+  color: #666;
+}

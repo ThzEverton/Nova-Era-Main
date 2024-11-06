@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Atividades</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Lista de Atividades</h2>
+
+<form id="atividades-form">
+    <label><input type="checkbox" name="atividade" value="1"> Apresentar a nossa empresa, nosso logo, nossa equipe</label>
+    <label><input type="checkbox" name="atividade" value="2"> Apresentar a escola, a logo da escola</label>
+    <label><input type="checkbox" name="atividade" value="3"> Apresentar o Canvas</label>
+    <label><input type="checkbox" name="atividade" value="4"> Apresentar o Briefing preliminar</label>
+    <label><input type="checkbox" name="atividade" value="5"> Draft</label>
+    <label><input type="checkbox" name="atividade" value="6"> Escopo e Funções</label>
+    <label><input type="checkbox" name="atividade" value="7"> Protótipo da identidade visual (Aqueles negócios do figma)</label>
+    <label><input type="checkbox" name="atividade" value="8"> O sistema desktop de controle acadêmico (o código em C)</label>
+    <label><input type="checkbox" name="atividade" value="9"> O website final</label>
+    <label>
+        Nova Atividade:
+        <input type="text" id="nova-atividade">
+    </label>
+    <button type="button" onclick="adicionarAtividade()">Adicionar</button>
+</form>
+
+<script>
+    function adicionarAtividade() {
+        var novaAtividadeInput = document.getElementById('nova-atividade');
+        var novaAtividade = novaAtividadeInput.value;
+        if (novaAtividade.trim() !== '') {
+            var form = document.getElementById('atividades-form');
+            var novaLabel = document.createElement('label');
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'atividade';
+            checkbox.value = novaAtividade;
+            novaLabel.appendChild(checkbox);
+            novaLabel.appendChild(document.createTextNode(' ' + novaAtividade));
+            form.insertBefore(novaLabel, novaAtividadeInput.parentNode);
+            novaAtividadeInput.value = '';
+        } else {
+            alert('Por favor, insira uma nova atividade.');
+        }
+    }
+
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                this.parentNode.classList.add('concluido');
+            } else {
+                this.parentNode.classList.remove('concluido');
+            }
+        });
+    });
+</script>
+
+<style>
+    .concluido {
+        text-decoration: line-through;
+        color: #999;
+    }
+</style>
+
+</body>
+</html>
