@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Era | HOME</title>
+    <link rel="shortcut icon" type="images" href="im">
+
+    <!-- Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- Custom CSS files -->
+    <link rel="stylesheet" href="css/escola.css">
+    <link rel="stylesheet" href="css/carrosel.css">
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" defer></script>
+    <!-- Custom JS -->
+    <script src="js/car.js" defer></script>
+    <script src="js/carrosel.js" defer></script>
+</head>
+<body>
+    <!-- Header section starts  -->
+    <header class="header">
+        <a href="index.html" class="logo"> <i class="fas fa-user-graduate"></i> Nova Era </a>
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="ensinofundamental.html">ENSINO FUNDAMENTAL</a></li>
+                <li><a href="cale.html">AGENDA</a></li>
+                <li><a href="Login.html">LOGIN</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Header section ends -->
+
+    <section class="heading">
+        <h3>Nova Era</h3>
+        <p style="text-align: left;"> <a href="home.html">home >></a> escola </p>
+    </section>
+
+    <!-- Ensino Fundamental section -->
+    <section class="headingSec">
+        <h1 class="titulo"><span class="highlight">Ensino</span> Fundamental</h1>
+        <p class="subtitulo">
+            Aqui na Escola Fundamental Nova Era, temos o compromisso de oferecer uma educação de qualidade que prepara nossos alunos para os desafios do futuro...
+        </p>
+    </section>
+
+    <!-- Carousel section (Ensino Fundamental) -->
+    <div class="swiper" id="ensinoFundamentalCarousel">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+    <!-- Proposta Pedagógica section -->
+    <section class="headingSec">
+        <h1 class="titulo"><span class="highlight">Proposta</span> Pedagógica</h1>
+        <p class="subtitulo">
+            Descubra mais sobre a abordagem educacional e os princípios que guiam nossa jornada na <span style="color: #ff0000;">Nova Era</span>...
+        </p>
+    </section>
+
+    <!-- Outro carrossel -->
+    <div class="swiper" id="imageCarousel">
+        <div class="swiper-wrapper"></div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+    <section class="propostaPedagogica">
+        <div class="conteudo">
+            <p>Aqui vai a descrição da proposta pedagógica...</p>
+        </div>
+    </section>
+
+    <!-- Footer section starts  -->
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Explore</h3>
+                <a href="home.html"> <i class="fas fa-arrow-right"></i> HOME </a>
+                <a href="about.html"> <i class="fas fa-arrow-right"></i> Ensino Fundamental </a>
+                <a href="course-1.html"> <i class="fas fa-arrow-right"></i> Agenda </a>
+                <a href="Login.html"> <i class="fas fa-arrow-right"></i> Login</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> Facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> Twitter </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> LinkedIn </a>
+                <a href="#"> <i class="fab fa-instagram"></i> Instagram </a>
+                <a href="#"> <i class="fab fa-youtube"></i> YouTube </a>
+                <a href="#"> <i class="fab fa-github"></i> GitHub </a>
+            </div>
+        </div>
+        <div class="credit">Created by <span>Your Name</span> | All rights reserved!</div>
+    </section>
+    <!-- Footer section ends -->
+
+    <!-- Custom JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Função para inicializar o swiper
+            function initializeSwiper(container) {
+                return new Swiper(container, {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            }
+
+            // Função para carregar as imagens do localStorage e adicioná-las ao carrossel
+            function loadCarousel(carouselId, storageKey) {
+                const carouselContainer = document.getElementById(carouselId);
+                const images = JSON.parse(localStorage.getItem('images')) || []; // Obtém as imagens do localStorage
+                const swiperWrapper = carouselContainer.querySelector('.swiper-wrapper');
+                swiperWrapper.innerHTML = ''; // Limpa as imagens existentes
+
+                // Filtra as imagens por carrossel
+                const filteredImages = images.filter(image => image.carrossel === storageKey);
+
+                filteredImages.forEach((image) => {
+                    const slide = document.createElement('div');
+                    slide.classList.add('swiper-slide');
+                    slide.innerHTML = `<img src="${image.path}" alt="${image.name}" />`; // Ajusta o caminho da imagem
+                    swiperWrapper.appendChild(slide);
+                });
+
+                if (swiperWrapper.children.length > 0) {
+                    initializeSwiper(`#${carouselId}`);
+                }
+            }
+
+            // Função para alterar slides manualmente
+            window.changeSlide = function(carouselId, direction) {
+                const container = document.getElementById(carouselId);
+                const swiper = container.swiper;
+                if (swiper) {
+                    if (direction === 1) {
+                        swiper.slideNext();
+                    } else if (direction === -1) {
+                        swiper.slidePrev();
+                    }
+                }
+            }
+
+            // Carregar as imagens dos carrosséis a partir do localStorage
+            loadCarousel('ensinoFundamentalCarousel', 'ensino_fundamental');
+            loadCarousel('imageCarousel', 'proposta_pedagogica');
+        });
+    </script>
+</body>
+</html>

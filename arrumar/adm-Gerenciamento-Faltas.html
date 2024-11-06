@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
+    <title>ADMINISTRATIVO NOVA ERA</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/tabela.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .presence {
+            color: green;
+        }
+        
+        .absence {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<!-- começo do header -->
+<nav class="navbar navbar-expand navbar-dark bg-warning" style="background-color: #222c3c !important;">
+    <!-- icone espandir menu -->
+    <a class="sidebar-toggle text-light mr-3">
+        <span class="navbar-toggler-icon"></span>
+    </a>
+    <!-- icone espandir menu -->
+    
+    <a class="navbar-brand" href="#">NOVA ERA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
+                    <img class="rounded-circle" src="imagem/undraw_profile.svg" width="20" height="20"> &nbsp;<span class="d-none d-sm-inline"> Usuário</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="perfil.html"><i class="fas fa-user"></i> Perfil</a>
+                        <a class="dropdown-item" href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </div>
+            </li>
+        </ul>                
+    </div>
+</nav>
+<!-- fim do header -->
+
+<!-- começo do menu lado direito -->
+<div class="d-flex">
+    <nav class="sidebar">
+        <ul class="list-unstyled">
+            <li><a href="adm-home.html"> Home Administrativo</a></li>
+            <li><a href="adm-GerenciamentoAluno.html"> Gerenciamento de Alunos</a></li>
+            <li><a href="adm-Gerenciamento-funcionarios.html"> Gerenciamento de Funcionarios</a></li>
+            <li><a href="adm-Gerenciamento-Eventoescolar.html"> Gerenciamento de Eventos Escolares</a></li>
+            <li><a href="adm-Gerenciamento-Carrosel.html"> Gerenciamento De Carrosel</a></li>
+            <li><a href="adm-Gerenciamento-Notas.html"> Gerenciamento de Notas</a></li>
+            <li><a href="adm-Gerenciamento-Faltas.html"> Gerenciamento de Faltas</a></li>
+           
+        </ul>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="turma">Selecione a Turma:</label><br>
+                <select id="turma" name="turma" class="form-control mb-3">
+                    <option value="turma_a">Turma A</option>
+                    <option value="turma_b">Turma B</option>
+                    <option value="turma_c">Turma C</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="materia">Selecione a Matéria:</label><br>
+                <select id="materia" name="materia" class="form-control mb-3">
+                    <option value="portugues">Português</option>
+                    <option value="matematica">Matemática</option>
+                    <option value="ciencias">Ciências</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="dataAtual">Data Atual:</label><br>
+                <input type="date" id="dataAtual" name="dataAtual">
+            </div>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome do Aluno</th>
+                    <th scope="col">Data 1</th>
+                    <th scope="col">Data 2</th>
+                    <th scope="col">Data 3</th>
+                    <th scope="col">Data 4</th>
+                    <th scope="col">Data Atual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>João Silva</td>
+                    <td class="absence">Falta</td>
+                    <td class="presence">Presença</td>
+                    <td class="absence">Falta</td>
+                    <td class="presence">Presença</td>
+                    <td><input type="checkbox" id="presenca1" name="presenca1" checked></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Maria Souza</td>
+                    <td class="presence">Presença</td>
+                    <td class="absence">Falta</td>
+                    <td class="presence">Presença</td>
+                    <td class="absence">Falta</td>
+                    <td><input type="checkbox" id="presenca2" name="presenca2" checked></td>
+                </tr>
+                <!-- Outras linhas da tabela aqui -->
+            </tbody>
+        </table>
+        
+        <button class="btn btn-primary">Salvar Faltas</button>
+    </div>
+</div>
+<!-- fim do menu lado direito -->
+
+<!-- Fim da tabela de gerenciamento de imagens -->
+<script src="js/dashboard.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

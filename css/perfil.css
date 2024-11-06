@@ -1,0 +1,153 @@
+body {
+    background: #f5f5f5;
+    margin-top: 20px;
+}
+
+
+.ui-w-80 {
+    width : 80px !important;
+    height: auto;
+}
+
+/* inicio rodape */
+.footer {
+    background: #f5f5f5;
+}
+
+.footer .box-container {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (minmax(25rem, 1fr))[auto-fit];
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5rem;
+}
+
+.footer .box-container .box h3 {
+    font-size: 2.2rem;
+    padding: 1rem 0;
+    color: #302851;
+}
+
+.footer .box-container .box a {
+    display: block;
+    font-size: 1.4rem;
+    padding: 1rem 0;
+    color: #666;
+}
+
+.footer .box-container .box a:hover {
+    color: crimson;
+}
+
+.footer .box-container .box a:hover i {
+    padding-right: 2rem;
+}
+
+.footer .box-container .box a i {
+    color: crimson;
+    padding-right: .5rem;
+}
+
+.footer .credit {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    font-size: 2rem;
+    color: #666;
+    border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+}
+/* inicio responsividade  */
+
+@media (max-width: 768px) {
+    #menu-btn {
+        display: inline-block;
+    }
+    .header {
+        padding: 2rem;
+    }
+    .header .navbar {
+        position: absolute;
+        top: 99%;
+        left: 0;
+        right: 0;
+        background: #224bcf;
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+    .header .navbar.active {
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .header .navbar ul li {
+        width: 100%;
+    }
+    .header .navbar ul li ul {
+        width: 100%;
+        position: relative;
+    }
+}
+/* Estilo para as notas */
+#notas {
+    margin-bottom: 30px;
+}
+
+#notas h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#notas h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#notas p {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para as faltas */
+#faltas {
+    margin-bottom: 30px;
+}
+
+#faltas h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#faltas p {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Estilo para o gráfico de faltas */
+.grafico-faltas {
+    margin-bottom: 30px;
+}
+
+.grafico-faltas h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.barra {
+    background-color: #224bcf;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    /* Adicione estilos específicos para telas menores aqui */
+}
+
+
+
+
+
+
+
+

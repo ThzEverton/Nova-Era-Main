@@ -1,0 +1,49 @@
+body {
+    background-color: #ffffff;
+}
+
+/* estilo do menu */
+.navbar .menu-header {
+    color: #ffffff !important;
+}
+
+/* estilo do header */
+.navbar {
+    background-color: #222c3c !important;
+}
+
+.sidebar {
+    background-color: #222c3c;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: calc(100vh - 56px);
+    transition: all 0.3s;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #c7cace;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul .active a {
+    color: #ecedee;
+    background-color: #354358;
+}
+
+/* Seletor utilizado para ativar o botão ocultar menu em PC */
+.sidebar.toggled {
+    margin-left: -250px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -250px;
+    }
+
+    .sidebar.toggled {
+        margin-left: 0px;
+    }
+}

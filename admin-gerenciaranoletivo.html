@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Gerenciar Ano Letivo - Sistema Educacional</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="jscad.js/anoletivo.js"></script>
+  <style>
+  /* Define o tamanho da fonte e deixa os links em negrito */
+a {
+  font-size: 12px; /* Define o tamanho da fonte para todos os links */
+  font-weight: bold; /* Deixa o texto em negrito */
+  color: #007bff; /* Define a cor do texto para preto (pode ajustar conforme necessário) */
+  text-decoration: none; /* Remove o sublinhado */
+}
+
+a:hover {
+  color: #143559; /* Altera a cor ao passar o mouse (opcional) */
+  text-decoration: underline; /* Adiciona o sublinhado ao passar o mouse */
+}
+
+/* Estilos existentes */
+.row.content {
+  height: 550px;
+}
+
+.sidenav {
+  background-color: #f1f1f1;
+  height: 190%;
+}
+
+@media screen and (max-width: 767px) {
+  .row.content {
+    height: auto;
+  }
+}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="admin-menu.html">Home</a></li>
+        <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+        <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+        <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+        <li><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
+        <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
+        <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
+        <li class="active"><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
+        <li><a href="#">Efetuar Matrícula</a></li>
+        <li><a href="#">Definir Grade Curricular</a></li>
+        <li><a href="#">Alocar Turma</a></li>
+        <li><a href="#">Gerenciar Compra de Material</a></li>
+        <li><a href="#">Controlar Estoque</a></li>
+        <li><a href="#">Efetuar Baixa</a></li>
+        <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+        <li><a href="#">Relatórios Gerais</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Logo</h2>
+      <ul class="nav nav-pills nav-stacked">
+         <a href="perfil.html" style="font-size: 19px;">
+        <i class="fas fa-user-circle" style="font-size: 20px;"></i> Perfil
+      </a>
+        <br><br>
+        <li><a href="admin-menu.html">Home</a></li>
+        <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+        <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+        <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+        <li><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
+        <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
+        <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
+        <li class="active"><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
+        <li><a href="#">Efetuar Matrícula</a></li>
+        <li><a href="#">Definir Grade Curricular</a></li>
+        <li><a href="#">Alocar Turma</a></li>
+        <li><a href="#">Gerenciar Compra de Material</a></li>
+        <li><a href="#">Controlar Estoque</a></li>
+        <li><a href="#">Efetuar Baixa</a></li>
+        <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+        <li><a href="#">Relatórios Gerais</a></li>
+      </ul><br>
+    </div>
+    <br>
+    <div class="col-sm-9">
+      <div class="container mt-4">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar Ano Letivo">
+          </div>
+          <div class="col-md-6 text-end">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">Cadastrar Novo Ano Letivo</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Ano</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="anoLetivos">
+            <!-- Anos Letivos serão adicionados aqui -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Ano Letivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="cadastroForm">
+          <!-- Formulário de Cadastro -->
+          <div class="form-group">
+            <label for="ano">Ano:</label>
+            <input type="text" class="form-control" id="ano" name="ano" required>
+          </div>
+          <div class="form-group">
+            <label for="descricao">Descrição:</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" id="salvarAnoLetivo">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
