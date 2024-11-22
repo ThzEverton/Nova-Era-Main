@@ -17,6 +17,7 @@
       color: #007bff;
       text-decoration: none;
     }
+ 
 
     a:hover {
       color: #143559;
@@ -46,14 +47,61 @@
       font-weight: bold;
     }
 
+    .container h3 {
+      margin-top: 20px;
+      color: #5bc0de;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    #turma {
+      width: 800px; /* Ajuste para ocupar toda a largura disponível */
+      border-radius: 5px;
+      padding: 8px;
+      margin-bottom: 20px;
+    }
+
+    #carregarLista {
+      background-color: #5bc0de;
+      border-color: #46b8da;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    #carregarLista:hover {
+      background-color: #46b8da;
+      border-color: #5bc0de;
+    }
+
+    .table th, .table td {
+      text-align: center;
+    }
+
+    .table-bordered {
+      border: 2px solid #ddd;
+    }
+
+    .table-bordered th, .table-bordered td {
+      border: 1px solid #ddd;
+    }
+
+    .table thead th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+
+    .table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
     @media screen and (max-width: 767px) {
       .row.content {
         height: auto;
       }
     }
-    #turma {
-    width: 300px; /* Ajuste para o tamanho desejado */
-  }
+
   </style>
 </head>
 
@@ -73,7 +121,7 @@
         <ul class="nav navbar-nav">
           <li><a href="admin-menu.html">Home</a></li>
           <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
-          <li ><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+          <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
           <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
           <li><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
           <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
@@ -91,6 +139,7 @@
       </div>
     </div>
   </nav>
+
   <div class="container-fluid">
     <div class="row content">
       <!-- Barra Lateral -->
@@ -120,7 +169,7 @@
       </div>
 
       <!-- Conteúdo Principal -->
-      <div class="col-sm-1">
+      <div class="col-sm-9">
         <div class="container mt-0">
           <h3>Fazer Chamada</h3>
           <div class="form-group">
@@ -130,7 +179,7 @@
             </select>
           </div>
           <button id="carregarLista" class="btn btn-primary">Carregar Lista</button>
-            <br><br>
+          <br><br>
           <table id="tabelaChamada" class="table table-bordered mt-4" style="display: none;">
             <thead>
               <tr>
