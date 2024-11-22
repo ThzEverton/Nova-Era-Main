@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Aluno</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .filter-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Relatório de Aluno</h1>
+
+        <!-- Filtros de busca -->
+        <div class="filter-container">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" id="filtroNome" class="form-control" placeholder="Buscar por nome">
+                </div>
+                <div class="col-md-4">
+                    <select id="filtroTurma" class="form-control">
+                        <option value="">Filtrar por turma</option>
+                        <!-- Turmas carregadas dinamicamente -->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button id="resetFiltros" class="btn btn-secondary">Limpar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário para selecionar o aluno -->
+        <form id="relatorioForm">
+            <div class="form-group">
+                <label for="alunoSelect">Selecione o Aluno</label>
+                <select id="alunoSelect" class="form-control">
+                    <option value="">Selecione um Aluno</option>
+                    <!-- Alunos carregados dinamicamente -->
+                </select>
+            </div>
+
+            <button type="button" id="gerarRelatorio" class="btn btn-primary mt-3">
+                Gerar Relatório <i class="fas fa-file-pdf"></i>
+            </button>
+        </form>
+
+        <!-- Seção para exibir os detalhes do aluno e da turma -->
+        <div id="detalhesAluno" class="mt-4" style="display:none;">
+            <h3>Informações do Aluno</h3>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td id="idAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <td id="nomeAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>Idade</th>
+                        <td id="idadeAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="emailAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>CPF</th>
+                        <td id="cpfAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>RG</th>
+                        <td id="rgAluno"></td>
+                    </tr>
+                    <tr>
+                        <th>Nome do Responsável</th>
+                        <td id="responsavelNome"></td>
+                    </tr>
+                    <tr>
+                        <th>Telefone do Responsável</th>
+                        <td id="responsavelTelefone"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="mt-4">Informações da Turma</h3>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Turma</th>
+                        <td id="turmaNome"></td>
+                    </tr>
+                    <tr>
+                        <th>Série</th>
+                        <td id="serieTurma"></td>
+                    </tr>
+                    <tr>
+                        <th>Ano Letivo</th>
+                        <td id="anoLetivoTurma"></td>
+                    </tr>
+                    <tr>
+                        <th>Professor</th>
+                        <td id="professorNome"></td>
+                    </tr>
+                    <tr>
+                        <th>Descrição</th>
+                        <td id="descricaoTurma"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bibliotecas JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Função para carregar os dados de alunos, turmas e professores
+            function carregarDados() {
+                var alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+                var turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+                var professores = JSON.parse(localStorage.getItem("professores")) || [];
+                return { alunos, turmas, professores };
+            }
+
+            // Função para preencher o select de alunos
+            function carregarAlunos() {
+                var { alunos, turmas, professores } = carregarDados();
+                var alunoSelect = $("#alunoSelect");
+                var filtroTurma = $("#filtroTurma");
+                alunoSelect.empty();
+                alunoSelect.append('<option value="">Selecione um Aluno</option>');
+
+                // Preencher o filtro de turma
+                filtroTurma.empty();
+                filtroTurma.append('<option value="">Filtrar por turma</option>');
+                turmas.forEach(function(turma) {
+                    filtroTurma.append(`<option value="${turma.id}">${turma.nome}</option>`);
+                });
+
+                // Preencher o select de alunos
+                alunos.forEach(function(aluno) {
+                    alunoSelect.append(`<option value="${aluno.id}" data-turma="${aluno.turmaId}">${aluno.nome}</option>`);
+                });
+            }
+
+            // Carregar alunos e turmas ao carregar a página
+            carregarAlunos();
+
+            // Função para filtrar alunos pelo nome
+            $("#filtroNome").on("input", function() {
+                var filtroNome = $(this).val().toLowerCase();
+                $("#alunoSelect option").each(function() {
+                    var nome = $(this).text().toLowerCase();
+                    if (nome.includes(filtroNome)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Função para filtrar alunos pela turma
+            $("#filtroTurma").change(function() {
+                var turmaId = $(this).val();
+                $("#alunoSelect option").each(function() {
+                    if (turmaId === "" || $(this).data("turma") == turmaId) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Limpar filtros
+            $("#resetFiltros").click(function() {
+                $("#filtroNome").val("");
+                $("#filtroTurma").val("");
+                $("#alunoSelect option").show();
+            });
+
+            // Quando o usuário selecionar um aluno
+            $("#alunoSelect").change(function() {
+                var alunoId = $(this).val();
+                if (alunoId) {
+                    var { alunos, turmas, professores } = carregarDados();
+                    var aluno = alunos.find(a => a.id == alunoId);
+                    var turma = turmas.find(t => t.id == aluno.turmaId);
+                    var professor = professores.find(p => p.id == turma.professorId);
+
+                    if (aluno && turma && professor) {
+                        // Exibir as informações do aluno
+                        $("#idAluno").text(aluno.id);
+                        $("#nomeAluno").text(aluno.nome);
+                        $("#idadeAluno").text(aluno.idade);
+                        $("#emailAluno").text(aluno.email);
+                        $("#cpfAluno").text(aluno.cpf);
+                        $("#rgAluno").text(aluno.rg);
+                        $("#responsavelNome").text(aluno.responsavel.nome);
+                        $("#responsavelTelefone").text(aluno.responsavel.telefone);
+
+                        // Exibir as informações da turma
+                        $("#turmaNome").text(turma.nome);
+                        $("#serieTurma").text(turma.serie);
+                        $("#anoLetivoTurma").text(turma.anoLetivo);
+                        $("#professorNome").text(professor.nome);
+                        $("#descricaoTurma").text(turma.descricao);
+
+                        // Mostrar a seção de detalhes
+                        $("#detalhesAluno").show();
+                    }
+                } else {
+                    // Esconder a seção de detalhes
+                    $("#detalhesAluno").hide();
+                }
+            });
+
+            // Gerar PDF do relatório
+            $("#gerarRelatorio").click(function() {
+                var alunoId = $("#alunoSelect").val();
+                if (!alunoId) {
+                    alert("Por favor, selecione um aluno.");
+                    return;
+                }
+
+                var { alunos, turmas, professores } = carregarDados();
+                var aluno = alunos.find(a => a.id == alunoId);
+                var turma = turmas.find(t => t.id == aluno.turmaId);
+                var professor = professores.find(p => p.id == turma.professorId);
+
+                const { jsPDF } = window.jspdf;
+                var doc = new jsPDF();
+
+                doc.setFontSize(18);
+                doc.text('Relatório do Aluno', 10, 10);
+
+                doc.setFontSize(12);
+                doc.text(`Aluno: ${aluno.nome}`, 10, 20);
+                doc.text(`Turma: ${turma.nome}`, 10, 30);
+                doc.text(`Professor: ${professor.nome}`, 10, 40);
+                doc.text(`Idade: ${aluno.idade}`, 10, 50);
+                doc.text(`Email: ${aluno.email}`, 10, 60);
+                doc.text(`CPF: ${aluno.cpf}`, 10, 70);
+
+                doc.save(`${aluno.nome}_relatorio.pdf`);
+            });
+        });
+    </script>
+</body>
+</html>
