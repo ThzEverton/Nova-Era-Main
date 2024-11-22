@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Efetuar Matrícula - Sistema Educacional</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="jscad.js/matricula.js"></script>
+  <style>
+    a {
+      font-size: 12px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #143559;
+      text-decoration: underline;
+    }
+
+    /* Estilos existentes */
+    .row.content {
+      height: 550px;
+    }
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 190%;
+    }
+
+    @media screen and (max-width: 767px) {
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>Logo</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <a href="perfil.html" style="font-size: 19px;">
+            <i class="fas fa-user-circle" style="font-size: 20px;"></i> Perfil
+          </a>
+          <br><br>
+          <li><a href="admin-menu.html">Home</a></li>
+          <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+          <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+          <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+          <li><a href="admin-gerenciarseries.html">Gerenciar Séries</a></li>
+          <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
+          <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
+          <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
+          <li class="active"><a href="#">Efetuar Matrícula</a></li>
+          <li><a href="#">Definir Grade Curricular</a></li>
+          <li><a href="#">Alocar Turma</a></li>
+          <li><a href="#">Gerenciar Compra de Material</a></li>
+          <li><a href="#">Controlar Estoque</a></li>
+          <li><a href="#">Efetuar Baixa</a></li>
+          <li ><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+          <li><a href="#">Relatórios Gerais</a></li>
+          <li ><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
+        </ul><br>
+      </div>
+        <br>
+      <div class="col-sm-9">
+        <div class="container mt-4">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar por nome do aluno">
+            </div>
+            <div class="col-md-6 text-end">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">Cadastrar Nova Matrícula</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Aluno</th>
+                <th>Turma</th>
+                <th>Data de Matrícula</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="matriculas">
+              <!-- Matrículas serão adicionadas aqui -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Cadastro de Matrícula -->
+  <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cadastroModalLabel">Cadastro de Matrícula</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="cadastroForm">
+            <div class="form-group">
+              <label for="aluno">Aluno:</label>
+              <select id="aluno" name="aluno" class="form-control" required>
+                <option value="">Selecione o Aluno</option>
+                <!-- Alunos serão preenchidos aqui -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="turma">Turma:</label>
+              <select id="turma" name="turma" class="form-control" required>
+                <option value="">Selecione a Turma</option>
+                <!-- Turmas serão preenchidas aqui -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dataMatricula">Data de Matrícula:</label>
+              <input type="date" class="form-control" id="dataMatricula" name="dataMatricula" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" id="salvarMatricula">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      var alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+      var turmas = JSON.parse(localStorage.getItem('turmas')) || [];
+
+      // Função para preencher a tabela de matrículas
+      function preencherTabelaMatriculas(alunos) {
+        var tbody = $('#matriculas');
+        tbody.empty();
+        alunos.forEach(function (aluno) {
+          tbody.append(
+            `<tr>
+              <th scope="row">${aluno.id}</th>
+              <td>${aluno.nome}</td>
+              <td>${aluno.turma}</td>
+              <td>${new Date().toLocaleDateString()}</td>
+              <td>
+                <button class="btn btn-info btn-sm editar" data-id="${aluno.id}">Editar</button>
+                <button class="btn btn-danger btn-sm excluir" data-id="${aluno.id}">Excluir</button>
+              </td>
+            </tr>`
+          );
+        });
+      }
+
+      // Preencher a tabela de matrículas ao carregar a página
+      preencherTabelaMatriculas(alunos);
+
+      // Filtro de pesquisa de aluno por nome
+      $('#pesquisar').on('keyup', function () {
+        var pesquisa = $(this).val().toLowerCase();
+        var alunosFiltrados = alunos.filter(function (aluno) {
+          return aluno.nome.toLowerCase().includes(pesquisa);
+        });
+        preencherTabelaMatriculas(alunosFiltrados);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
