@@ -1,31 +1,25 @@
-$(document).ready(function() {
-    // Função para carregar os dados do localStorage
+$(document).ready(function () {
     function carregarDados() {
-        // Verificar se há dados salvos no localStorage
-        var alunos = JSON.parse(localStorage.getItem('alunos')) || [];
-        var turmas = JSON.parse(localStorage.getItem('turmas')) || [];
-
+        var alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+        var turmas = JSON.parse(localStorage.getItem("turmas")) || [];
         return { alunos, turmas };
     }
 
-    // Carregar os dados do localStorage
     var { alunos, turmas } = carregarDados();
 
-    // Função para preencher o campo de seleção de turmas
     function preencherSelectTurmas(turmas) {
-        var turmaSelect = $('#serie');
+        var turmaSelect = $("#serie");
         turmaSelect.empty();
         turmaSelect.append('<option value="">Selecione a Turma</option>');
-        turmas.forEach(function(turma) {
+        turmas.forEach(function (turma) {
             turmaSelect.append(`<option value="${turma.id}">${turma.nome}</option>`);
         });
     }
 
-    // Função para preencher a tabela com alunos existentes
     function preencherTabelaAlunos(alunos) {
-        var tbody = $('#alunos');
+        var tbody = $("#alunos");
         tbody.empty();
-        alunos.forEach(function(aluno) {
+        alunos.forEach(function (aluno) {
             tbody.append(
                 `<tr>
                     <th scope="row">${aluno.id}</th>
@@ -42,28 +36,62 @@ $(document).ready(function() {
         });
     }
 
-    // Preencher o campo de seleção e a tabela ao carregar os dados
+    function aplicarMascaras() {
+        $("#cpf").mask("000.000.000-00", { reverse: true });
+        $("#rg").mask("00.000.000-0");
+        $("#responsavel_telefone").mask("(00) 00000-0000");
+    }
+
     preencherSelectTurmas(turmas);
     preencherTabelaAlunos(alunos);
 
-    // Manipulador do botão Salvar (Adicionar ou Editar aluno)
-    $('#salvarAluno').click(function() {
-        var nome = $('#nome').val();
-        var idade = $('#idade').val();
-        var email = $('#email').val();
-        var cpf = $('#cpf').val();
-        var rg = $('#rg').val();
-        var turmaId = $('#serie').val();
-        var responsavelNome = $('#responsavel_nome').val();
-        var responsavelCpf = $('#responsavel_cpf').val();
-        var responsavelRg = $('#responsavel_rg').val();
-        var responsavelTelefone = $('#responsavel_telefone').val();
-        var responsavelEmail = $('#responsavel_email').val();
+    function validarCamposObrigatorios() {
+        var campos = [
+            { id: "nome", mensagem: "Por favor, insira o nome do aluno." },
+            { id: "idade", mensagem: "Por favor, insira a idade do aluno." },
+            { id: "email", mensagem: "Por favor, insira o e-mail do aluno." },
+            { id: "cpf", mensagem: "Por favor, insira o CPF do aluno." },
+            { id: "rg", mensagem: "Por favor, insira o RG do aluno." },
+            { id: "serie", mensagem: "Por favor, selecione uma turma." },
+            { id: "responsavel_nome", mensagem: "Por favor, insira o nome do responsável." },
+            { id: "responsavel_cpf", mensagem: "Por favor, insira o CPF do responsável." },
+            { id: "responsavel_rg", mensagem: "Por favor, insira o RG do responsável." },
+            { id: "responsavel_telefone", mensagem: "Por favor, insira o telefone do responsável." },
+            { id: "responsavel_email", mensagem: "Por favor, insira o e-mail do responsável." },
+        ];
 
-        var selectedTurma = turmas.find(t => t.id == turmaId);
+        for (var campo of campos) {
+            var valor = $("#" + campo.id).val().trim();
+            if (!valor) {
+                alert(campo.mensagem);
+                $("#" + campo.id).focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    $("#salvarAluno").click(function () {
+        if (!validarCamposObrigatorios()) {
+            return;
+        }
+
+        var nome = $("#nome").val();
+        var idade = $("#idade").val();
+        var email = $("#email").val();
+        var cpf = $("#cpf").val();
+        var rg = $("#rg").val();
+        var turmaId = $("#serie").val();
+        var responsavelNome = $("#responsavel_nome").val();
+        var responsavelCpf = $("#responsavel_cpf").val();
+        var responsavelRg = $("#responsavel_rg").val();
+        var responsavelTelefone = $("#responsavel_telefone").val();
+        var responsavelEmail = $("#responsavel_email").val();
+
+        var selectedTurma = turmas.find((t) => t.id == turmaId);
 
         if (!selectedTurma) {
-            alert('Turma não encontrada');
+            alert("Turma não encontrada.");
             return;
         }
 
@@ -74,72 +102,69 @@ $(document).ready(function() {
             email: email,
             cpf: cpf,
             rg: rg,
-            turmaId: selectedTurma.id, // Salva o ID da turma
-            turma: selectedTurma.nome, // Nome da turma para exibição
+            turmaId: selectedTurma.id,
+            turma: selectedTurma.nome,
             responsavel: {
                 nome: responsavelNome,
                 cpf: responsavelCpf,
                 rg: responsavelRg,
                 telefone: responsavelTelefone,
-                email: responsavelEmail
-            }
+                email: responsavelEmail,
+            },
         };
 
         alunos.push(novoAluno);
-        localStorage.setItem('alunos', JSON.stringify(alunos));
-
-        // Atualizar a tabela
+        localStorage.setItem("alunos", JSON.stringify(alunos));
         preencherTabelaAlunos(alunos);
-
-        // Fechar o modal
-        $('#cadastroModal').modal('hide');
+        $("#cadastroModal").modal("hide");
     });
 
-    // Manipulador do botão Excluir
-    $(document).on('click', '.excluir', function() {
-        var id = $(this).data('id');
-        alunos = alunos.filter(aluno => aluno.id !== id); // Remove o aluno
-        localStorage.setItem('alunos', JSON.stringify(alunos)); // Atualiza o localStorage
-        preencherTabelaAlunos(alunos); // Atualiza a tabela
+    $(document).on("click", ".excluir", function () {
+        var id = $(this).data("id");
+        alunos = alunos.filter((aluno) => aluno.id !== id);
+        localStorage.setItem("alunos", JSON.stringify(alunos));
+        preencherTabelaAlunos(alunos);
     });
 
-    // Manipulador do botão Editar
-    $(document).on('click', '.editar', function() {
-        var id = $(this).data('id');
-        var aluno = alunos.find(a => a.id === id);
+    $(document).on("click", ".editar", function () {
+        var id = $(this).data("id");
+        var aluno = alunos.find((a) => a.id === id);
 
-        $('#nome').val(aluno.nome);
-        $('#idade').val(aluno.idade);
-        $('#email').val(aluno.email);
-        $('#cpf').val(aluno.cpf);
-        $('#rg').val(aluno.rg);
-        $('#serie').val(aluno.turmaId); // Agora estamos utilizando o ID da turma
-        $('#responsavel_nome').val(aluno.responsavel.nome);
-        $('#responsavel_cpf').val(aluno.responsavel.cpf);
-        $('#responsavel_rg').val(aluno.responsavel.rg);
-        $('#responsavel_telefone').val(aluno.responsavel.telefone);
-        $('#responsavel_email').val(aluno.responsavel.email);
+        $("#nome").val(aluno.nome);
+        $("#idade").val(aluno.idade);
+        $("#email").val(aluno.email);
+        $("#cpf").val(aluno.cpf);
+        $("#rg").val(aluno.rg);
+        $("#serie").val(aluno.turmaId);
+        $("#responsavel_nome").val(aluno.responsavel.nome);
+        $("#responsavel_cpf").val(aluno.responsavel.cpf);
+        $("#responsavel_rg").val(aluno.responsavel.rg);
+        $("#responsavel_telefone").val(aluno.responsavel.telefone);
+        $("#responsavel_email").val(aluno.responsavel.email);
 
-        $('#cadastroModal').modal('show');
+        $("#cadastroModal").modal("show");
 
-        // Atualizar o botão Salvar para Atualizar
-        $('#salvarAluno').off('click').click(function() {
-            aluno.nome = $('#nome').val();
-            aluno.idade = $('#idade').val();
-            aluno.email = $('#email').val();
-            aluno.cpf = $('#cpf').val();
-            aluno.rg = $('#rg').val();
-            aluno.turmaId = $('#serie').val(); // Agora estamos atualizando o ID da turma
-            aluno.turma = turmas.find(t => t.id == aluno.turmaId).nome; // Atualiza o nome da turma
-            aluno.responsavel.nome = $('#responsavel_nome').val();
-            aluno.responsavel.cpf = $('#responsavel_cpf').val();
-            aluno.responsavel.rg = $('#responsavel_rg').val();
-            aluno.responsavel.telefone = $('#responsavel_telefone').val();
-            aluno.responsavel.email = $('#responsavel_email').val();
+        $("#salvarAluno").off("click").click(function () {
+            if (!validarCamposObrigatorios()) {
+                return;
+            }
 
-            localStorage.setItem('alunos', JSON.stringify(alunos));
+            aluno.nome = $("#nome").val();
+            aluno.idade = $("#idade").val();
+            aluno.email = $("#email").val();
+            aluno.cpf = $("#cpf").val();
+            aluno.rg = $("#rg").val();
+            aluno.turmaId = $("#serie").val();
+            aluno.turma = turmas.find((t) => t.id == aluno.turmaId).nome;
+            aluno.responsavel.nome = $("#responsavel_nome").val();
+            aluno.responsavel.cpf = $("#responsavel_cpf").val();
+            aluno.responsavel.rg = $("#responsavel_rg").val();
+            aluno.responsavel.telefone = $("#responsavel_telefone").val();
+            aluno.responsavel.email = $("#responsavel_email").val();
+
+            localStorage.setItem("alunos", JSON.stringify(alunos));
             preencherTabelaAlunos(alunos);
-            $('#cadastroModal').modal('hide');
+            $("#cadastroModal").modal("hide");
         });
     });
 });
