@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Controlar Estoque - Sistema Educacional</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    a {
+      font-size: 12px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #143559;
+      text-decoration: underline;
+    }
+
+    .row.content {
+      height: 550px;
+    }
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 190%;
+    }
+
+    @media screen and (max-width: 767px) {
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse visible-xs">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Logo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="admin-menu.html">Home</a></li>
+          <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+          <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+          <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+          <li><a href="#">Controlar Estoque</a></li>
+          <li><a href="#">Efetuar Baixa</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row content">
+      <div class="col-sm-3 sidenav hidden-xs">
+        <h2>Logo</h2>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="admin-menu.html">Home</a></li>
+          <li><a href="admin-gerenciaraluno.html">Gerenciar Alunos</a></li>
+          <li><a href="admin-gerenciamentodisciplina.html">Gerenciar Disciplinas</a></li>
+          <li><a href="admin-gerenciamentoprofessor.html">Gerenciar Professores</a></li>
+          <li class="active"><a href="#">Controlar Estoque</a></li>
+          <li><a href="#">Efetuar Baixa</a></li>
+        </ul>
+      </div>
+      <br>
+
+      <div class="col-sm-9">
+        <div class="container mt-4">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar Material">
+            </div>
+            <div class="col-md-6 text-end">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">Adicionar Material</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="estoque">
+              <!-- Materiais serão adicionados dinamicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cadastroModalLabel">Adicionar Material ao Estoque</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="cadastroForm">
+            <div class="form-group">
+              <label for="nome">Nome do Material:</label>
+              <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+              <label for="categoria">Categoria:</label>
+              <input type="text" class="form-control" id="categoria" name="categoria" required>
+            </div>
+            <div class="form-group">
+              <label for="quantidade">Quantidade:</label>
+              <input type="number" class="form-control" id="quantidade" name="quantidade" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" id="salvarMaterial">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

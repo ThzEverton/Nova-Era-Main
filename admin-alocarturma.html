@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Efetuar Matrícula - Sistema Educacional</title>
+  <title>Alocar Turma - Sistema Educacional</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -34,8 +34,9 @@
           <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
           <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
           <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
-          <li class="active"><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
+          <li><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
           <li><a href="admin-definirgradecurricular.html">Definir Grade Curricular</a></li>
+          <li class="active"><a href="admin-alocarturma.html">Alocar Turma</a></li>
           <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
           <li><a href="#">Relatórios Gerais</a></li>
           <li><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
@@ -62,8 +63,9 @@
           <li><a href="admin-gerenciarturma.html">Gerenciar Turmas</a></li>
           <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
           <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
-          <li class="active"><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
+          <li><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
           <li><a href="admin-definirgradecurricular.html">Definir Grade Curricular</a></li>
+          <li class="active"><a href="admin-alocarturma.html">Alocar Turma</a></li>
           <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
           <li><a href="#">Relatórios Gerais</a></li>
           <li><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
@@ -72,36 +74,21 @@
 
       <div class="col-sm-9">
         <div class="container mt-4">
-          <h3>Efetuar Matrícula</h3>
-          <p>Complete o formulário abaixo para realizar a matrícula de um aluno.</p>
+          <h3>Alocar Turma em Sala</h3>
+          <p>Complete o formulário abaixo para alocar uma turma a uma sala para uma disciplina específica.</p>
 
-          <!-- Formulário de Matrícula -->
-          <form id="matriculaForm">
-            <!-- Seleção de Aluno -->
+          <!-- Formulário de Alocação de Turma -->
+          <form id="alocarTurmaForm">
+            <!-- Seleção de Disciplina -->
             <div class="form-group">
-              <label for="aluno">Selecione o Aluno:</label>
-              <select class="form-control" id="aluno" name="aluno" required>
-                <option value="">Selecione um Aluno</option>
-                <option value="1">João Silva</option>
-                <option value="2">Maria Oliveira</option>
-                <option value="3">Carlos Souza</option>
-                <!-- Adicionar mais alunos dinamicamente se necessário -->
-              </select>
-            </div>
-
-            <!-- Seleção de Série -->
-            <div class="form-group">
-              <label for="serie">Selecione a Série:</label>
-              <select class="form-control" id="serie" name="serie" required>
-                <option value="1">1º Ano</option>
-                <option value="2">2º Ano</option>
-                <option value="3">3º Ano</option>
-                <option value="4">4º Ano</option>
-                <option value="5">5º Ano</option>
-                <option value="6">6º Ano</option>
-                <option value="7">7º Ano</option>
-                <option value="8">8º Ano</option>
-                <option value="9">9º Ano</option>
+              <label for="disciplina">Selecione a Disciplina:</label>
+              <select class="form-control" id="disciplina" name="disciplina" required>
+                <option value="">Selecione uma Disciplina</option>
+                <option value="matematica">Matemática</option>
+                <option value="portugues">Português</option>
+                <option value="historia">História</option>
+                <option value="geografia">Geografia</option>
+                <option value="ciencias">Ciências</option>
               </select>
             </div>
 
@@ -112,20 +99,78 @@
                 <option value="A">Turma A</option>
                 <option value="B">Turma B</option>
                 <option value="C">Turma C</option>
-                <!-- Adicionar mais turmas conforme necessário -->
+              </select>
+            </div>
+
+            <!-- Seleção de Sala -->
+            <div class="form-group">
+              <label for="sala">Selecione a Sala:</label>
+              <select class="form-control" id="sala" name="sala" required>
+                <option value="sala1">Sala 1</option>
+                <option value="sala2">Sala 2</option>
+                <option value="sala3">Sala 3</option>
+                <option value="sala4">Sala 4</option>
               </select>
             </div>
 
             <!-- Botões de Ação -->
             <div class="form-group">
-              <button type="submit" class="btn btn-success">Confirmar Matrícula</button>
+              <button type="submit" class="btn btn-success">Alocar Turma</button>
               <button type="reset" class="btn btn-secondary">Cancelar</button>
             </div>
           </form>
+
+          <!-- Tabela de Alocações -->
+          <h4>Alocações Realizadas</h4>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Disciplina</th>
+                <th>Turma</th>
+                <th>Sala</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaAlocacoes">
+              <!-- As alocações serão listadas aqui -->
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    // Função para adicionar uma alocação à tabela
+    $('#alocarTurmaForm').on('submit', function(event) {
+      event.preventDefault();
+
+      const disciplina = $('#disciplina').val();
+      const turma = $('#turma').val();
+      const sala = $('#sala').val();
+
+      // Verificar se todos os campos estão preenchidos
+      if (disciplina && turma && sala) {
+        // Adicionar a linha na tabela
+        $('#tabelaAlocacoes').append(`
+          <tr>
+            <td>${disciplina}</td>
+            <td>${turma}</td>
+            <td>${sala}</td>
+            <td><button class="btn btn-danger btn-sm">Remover</button></td>
+          </tr>
+        `);
+
+        // Resetar o formulário após a adição
+        $('#alocarTurmaForm')[0].reset();
+      }
+    });
+
+    // Função para remover a alocação
+    $(document).on('click', '.btn-danger', function() {
+      $(this).closest('tr').remove();
+    });
+  </script>
 
 </body>
 
