@@ -11,11 +11,11 @@ const eventTitleInput = document.getElementById('eventTitleInput');
 
 // Div do calendário
 const calendar = document.getElementById('calendar');
-const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado']; // Array com os dias da semana
+const weekdays = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
 
 // Funções
 
-// Função para abrir o modal (não será mais usada)
+// Função para abrir o modal
 function openModal(date) {
   clicked = date;
   const eventDay = events.find((event) => event.date === clicked);
@@ -23,12 +23,11 @@ function openModal(date) {
   if (eventDay) {
     document.getElementById('eventText').innerText = eventDay.title;
     deleteEventModal.style.display = 'block';
-    backDrop.style.display = 'block';
   } else {
-    // newEvent.style.display = 'block'; // Comentado para desativar a criação de novos eventos
+    newEvent.style.display = 'block';
   }
 
-  // backDrop.style.display = 'block'; // Comentado para que nada aconteça ao clicar em uma data sem evento
+  backDrop.style.display = 'block';
 }
 
 // Função load() será chamada quando a página carregar
@@ -54,7 +53,7 @@ function load() {
     day: 'numeric',
   });
 
-  const paddinDays = weekdays.indexOf(dateString.split(', ')[0]);
+  const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
   // Mostrar mês e ano
   document.getElementById('monthDisplay').innerText = `${date.toLocaleDateString('pt-br', { month: 'long' })}, ${year}`;
@@ -62,19 +61,18 @@ function load() {
   calendar.innerHTML = '';
 
   // Criando uma div com os dias
-  for (let i = 1; i <= paddinDays + daysMonth; i++) {
+  for (let i = 1; i <= paddingDays + daysMonth; i++) {
     const dayS = document.createElement('div');
     dayS.classList.add('day');
 
-    const dayString = `${month + 1}/${i - paddinDays}/${year}`;
+    const dayString = `${month + 1}/${i - paddingDays}/${year}`;
 
-    // Condicional para criar os dias de um mês
-    if (i > paddinDays) {
-      dayS.innerText = i - paddinDays;
+    if (i > paddingDays) {
+      dayS.innerText = i - paddingDays;
 
-      const eventDay = events.find(event => event.date === dayString);
+      const eventDay = events.find((event) => event.date === dayString);
 
-      if (i - paddinDays === day && nav === 0) {
+      if (i - paddingDays === day && nav === 0) {
         dayS.id = 'currentDay';
       }
 
@@ -85,9 +83,7 @@ function load() {
         dayS.appendChild(eventDiv);
       }
 
-      // Removendo o event listener para desativar a funcionalidade de clique
-      // dayS.addEventListener('click', () => openModal(dayString)); 
-
+      dayS.addEventListener('click', () => openModal(dayString));
     } else {
       dayS.classList.add('padding');
     }
@@ -108,27 +104,26 @@ function closeModal() {
   load();
 }
 
-// Função para salvar o evento (comentada para desativar a criação de novos eventos)
+// Função para salvar o evento
 function saveEvent() {
-  // if (eventTitleInput.value) {
-  //   eventTitleInput.classList.remove('error');
+  if (eventTitleInput.value) {
+    eventTitleInput.classList.remove('error');
 
-  //   events.push({
-  //     date: clicked,
-  //     title: eventTitleInput.value
-  //   });
+    events.push({
+      date: clicked,
+      title: eventTitleInput.value,
+    });
 
-  //   localStorage.setItem('events', JSON.stringify(events));
-  //   closeModal();
-
-  // } else {
-  //   eventTitleInput.classList.add('error');
-  // }
+    localStorage.setItem('events', JSON.stringify(events));
+    closeModal();
+  } else {
+    eventTitleInput.classList.add('error');
+  }
 }
 
 // Função para deletar o evento
 function deleteEvent() {
-  events = events.filter(event => event.date !== clicked);
+  events = events.filter((event) => event.date !== clicked);
   localStorage.setItem('events', JSON.stringify(events));
   closeModal();
 }
@@ -145,7 +140,7 @@ function buttons() {
     load();
   });
 
-  // document.getElementById('saveButton').addEventListener('click', () => saveEvent()); // Comentado para desativar a criação de novos eventos
+  document.getElementById('saveButton').addEventListener('click', () => saveEvent());
 
   document.getElementById('cancelButton').addEventListener('click', () => closeModal());
 

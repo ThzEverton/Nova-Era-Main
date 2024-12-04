@@ -6,6 +6,7 @@ $(document).ready(function () {
     }
 
     var { alunos, turmas } = carregarDados();
+    var editandoAlunoId = null; // Variável de controle para edição
 
     function preencherSelectTurmas(turmas) {
         var turmaSelect = $("#serie");
@@ -34,12 +35,6 @@ $(document).ready(function () {
                 </tr>`
             );
         });
-    }
-
-    function aplicarMascaras() {
-        $("#cpf").mask("000.000.000-00", { reverse: true });
-        $("#rg").mask("00.000.000-0");
-        $("#responsavel_telefone").mask("(00) 00000-0000");
     }
 
     preencherSelectTurmas(turmas);
@@ -95,40 +90,66 @@ $(document).ready(function () {
             return;
         }
 
-        var novoAluno = {
-            id: alunos.length + 1,
-            nome: nome,
-            idade: idade,
-            email: email,
-            cpf: cpf,
-            rg: rg,
-            turmaId: selectedTurma.id,
-            turma: selectedTurma.nome,
-            responsavel: {
-                nome: responsavelNome,
-                cpf: responsavelCpf,
-                rg: responsavelRg,
-                telefone: responsavelTelefone,
-                email: responsavelEmail,
-            },
-        };
+        if (editandoAlunoId) {
+            // Editar aluno existente
+            var aluno = alunos.find((a) => a.id === editandoAlunoId);
+            aluno.nome = nome;
+            aluno.idade = idade;
+            aluno.email = email;
+            aluno.cpf = cpf;
+            aluno.rg = rg;
+            aluno.turmaId = turmaId;
+            aluno.turma = selectedTurma.nome;
+            aluno.responsavel.nome = responsavelNome;
+            aluno.responsavel.cpf = responsavelCpf;
+            aluno.responsavel.rg = responsavelRg;
+            aluno.responsavel.telefone = responsavelTelefone;
+            aluno.responsavel.email = responsavelEmail;
 
-        alunos.push(novoAluno);
+            editandoAlunoId = null; // Resetar a variável de controle
+        } else {
+            // Adicionar novo aluno
+            var novoAluno = {
+                id: alunos.length + 1,
+                nome: nome,
+                idade: idade,
+                email: email,
+                cpf: cpf,
+                rg: rg,
+                turmaId: turmaId,
+                turma: selectedTurma.nome,
+                responsavel: {
+                    nome: responsavelNome,
+                    cpf: responsavelCpf,
+                    rg: responsavelRg,
+                    telefone: responsavelTelefone,
+                    email: responsavelEmail,
+                },
+            };
+
+            alunos.push(novoAluno);
+        }
+
         localStorage.setItem("alunos", JSON.stringify(alunos));
         preencherTabelaAlunos(alunos);
-        $("#cadastroModal").modal("hide");
+        $("#cadastroModal").modal("hide"); // Fecha a modal
     });
 
     $(document).on("click", ".excluir", function () {
         var id = $(this).data("id");
-        alunos = alunos.filter((aluno) => aluno.id !== id);
-        localStorage.setItem("alunos", JSON.stringify(alunos));
-        preencherTabelaAlunos(alunos);
+
+        if (confirm("Deseja realmente excluir este aluno?")) {
+            alunos = alunos.filter((aluno) => aluno.id !== id);
+            localStorage.setItem("alunos", JSON.stringify(alunos));
+            preencherTabelaAlunos(alunos);
+        }
     });
 
     $(document).on("click", ".editar", function () {
         var id = $(this).data("id");
         var aluno = alunos.find((a) => a.id === id);
+
+        editandoAlunoId = id; // Configurar o ID do aluno sendo editado
 
         $("#nome").val(aluno.nome);
         $("#idade").val(aluno.idade);
@@ -143,28 +164,5 @@ $(document).ready(function () {
         $("#responsavel_email").val(aluno.responsavel.email);
 
         $("#cadastroModal").modal("show");
-
-        $("#salvarAluno").off("click").click(function () {
-            if (!validarCamposObrigatorios()) {
-                return;
-            }
-
-            aluno.nome = $("#nome").val();
-            aluno.idade = $("#idade").val();
-            aluno.email = $("#email").val();
-            aluno.cpf = $("#cpf").val();
-            aluno.rg = $("#rg").val();
-            aluno.turmaId = $("#serie").val();
-            aluno.turma = turmas.find((t) => t.id == aluno.turmaId).nome;
-            aluno.responsavel.nome = $("#responsavel_nome").val();
-            aluno.responsavel.cpf = $("#responsavel_cpf").val();
-            aluno.responsavel.rg = $("#responsavel_rg").val();
-            aluno.responsavel.telefone = $("#responsavel_telefone").val();
-            aluno.responsavel.email = $("#responsavel_email").val();
-
-            localStorage.setItem("alunos", JSON.stringify(alunos));
-            preencherTabelaAlunos(alunos);
-            $("#cadastroModal").modal("hide");
-        });
     });
 });

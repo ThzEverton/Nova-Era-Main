@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="jscad.js/controleestoque.js"></script>
   <style>
     a {
       font-size: 12px;
@@ -64,12 +66,12 @@
           <li><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
           <li><a href="admin-definirgradecurricular.html">Definir Grade Curricular</a></li>
           <li><a href="admin-alocarturma.html">Alocar Turma</a></li>
-         <li ><a href="admin-gerencimantodecompra.html">Gerenciar Compra de Material</a></li>
-         <li class="active"><a href="admin-gerenciamentoestoque.html">Controlar Estoque</a></li>
+          <li><a href="admin-gerencimantodecompra.html">Gerenciar Compra de Material</a></li>
+          <li class="active"><a href="admin-gerenciamentoestoque.html">Controlar Estoque</a></li>
           <li><a href="admin-gerenciamentodebaixa.html">Efetuar Baixa</a></li>
-          <li ><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+          <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
           <li><a href="gerencimantorelatorio.html">Relatórios Gerais</a></li>
-          <li ><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
+          <li><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
         </ul>
       </div>
     </div>
@@ -91,12 +93,12 @@
           <li><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
           <li><a href="admin-definirgradecurricular.html">Definir Grade Curricular</a></li>
           <li><a href="admin-alocarturma.html">Alocar Turma</a></li>
-         <li ><a href="admin-gerencimantodecompra.html">Gerenciar Compra de Material</a></li>
-         <li class="active"><a href="admin-gerenciamentoestoque.html">Controlar Estoque</a></li>
+          <li><a href="admin-gerencimantodecompra.html">Gerenciar Compra de Material</a></li>
+          <li class="active"><a href="admin-gerenciamentoestoque.html">Controlar Estoque</a></li>
           <li><a href="admin-gerenciamentodebaixa.html">Efetuar Baixa</a></li>
-          <li ><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
+          <li><a href="admin-gerenciamentocarrosel.html">Gerenciar Carrosel</a></li>
           <li><a href="gerencimantorelatorio.html">Relatórios Gerais</a></li>
-          <li ><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
+          <li><a href="admin-gerenciamentochamada.html">Fazer Chamada</a></li>
         </ul>
       </div>
       <br>
@@ -108,7 +110,7 @@
               <input type="text" id="pesquisar" class="form-control" placeholder="Pesquisar Material">
             </div>
             <div class="col-md-6 text-end">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#cadastroModal">Adicionar Material</button>
+              <button id="gerarRelatorio" class="btn btn-primary" onclick="gerarRelatorioPDF()">Gerar Relatório de Compras e Baixas</button>
             </div>
           </div>
           <table class="table">
@@ -116,7 +118,6 @@
               <tr>
                 <th>#</th>
                 <th>Nome</th>
-                <th>Categoria</th>
                 <th>Quantidade</th>
                 <th>Ações</th>
               </tr>
@@ -130,41 +131,10 @@
     </div>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="cadastroModal" tabindex="-1" role="dialog" aria-labelledby="cadastroModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="cadastroModalLabel">Adicionar Material ao Estoque</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="cadastroForm">
-            <div class="form-group">
-              <label for="nome">Nome do Material:</label>
-              <input type="text" class="form-control" id="nome" name="nome" required>
-            </div>
-            <div class="form-group">
-              <label for="categoria">Categoria:</label>
-              <input type="text" class="form-control" id="categoria" name="categoria" required>
-            </div>
-            <div class="form-group">
-              <label for="quantidade">Quantidade:</label>
-              <input type="number" class="form-control" id="quantidade" name="quantidade" required>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" id="salvarMaterial">Salvar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    // Função para salvar material no estoque
+    function exibirEstoque(){
 
-</body>
-
-</html>
+    }
+    function salvarMaterial() { 
+   }

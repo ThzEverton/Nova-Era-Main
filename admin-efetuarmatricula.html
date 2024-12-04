@@ -9,6 +9,34 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    a {
+      font-size: 12px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #143559;
+      text-decoration: underline;
+    }
+
+    .row.content {
+      height: 550px;
+    }
+
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 190%;
+    }
+
+    @media screen and (max-width: 767px) {
+      .row.content {
+        height: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -35,7 +63,7 @@
           <li><a href="admin-gerenciarsalas.html">Gerenciar Salas</a></li>
           <li><a href="admin-gerenciaranoletivo.html">Gerenciar Ano Letivo</a></li>
           <li class="active"><a href="admin-efetuarmatricula.html">Efetuar Matrícula</a></li>
-          <li><a href="admin-gerenciargradecurricular.html">Definir Grade Curricular</a></li>
+          <li><a href="admin-definirgradecurricular.html">Definir Grade Curricular</a></li>
           <li><a href="admin-alocarturma.html">Alocar Turma</a></li>
            <li><a href="admin-gerencimantodecompra.html">Gerenciar Compra de Material</a></li>
           <li><a href="admin-gerenciamentoestoque.html">Controlar Estoque</a></li>
@@ -90,10 +118,7 @@
               <label for="aluno">Selecione o Aluno:</label>
               <select class="form-control" id="aluno" name="aluno" required>
                 <option value="">Selecione um Aluno</option>
-                <option value="1">João Silva</option>
-                <option value="2">Maria Oliveira</option>
-                <option value="3">Carlos Souza</option>
-                <!-- Adicionar mais alunos dinamicamente se necessário -->
+                <!-- Alunos serão carregados aqui dinamicamente -->
               </select>
             </div>
 
@@ -120,7 +145,6 @@
                 <option value="A">Turma A</option>
                 <option value="B">Turma B</option>
                 <option value="C">Turma C</option>
-                <!-- Adicionar mais turmas conforme necessário -->
               </select>
             </div>
 
@@ -130,10 +154,85 @@
               <button type="reset" class="btn btn-secondary">Cancelar</button>
             </div>
           </form>
+
+          <h4>Lista de Matrículas</h4>
+          <ul id="matriculasList">
+            <!-- Matrículas realizadas serão exibidas aqui -->
+          </ul>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+      const matriculas = JSON.parse(localStorage.getItem('matriculas')) || [];
+
+      // Carrega os alunos no select
+      const alunoSelect = document.getElementById('aluno');
+      alunos.forEach(aluno => {
+        const option = document.createElement('option');
+        option.value = aluno.id;
+        option.textContent = aluno.nome;
+        alunoSelect.appendChild(option);
+      });
+
+      // Função para registrar matrícula
+      function registrarMatricula(alunoId, serie, turma) {
+        const matricula = {
+          alunoId: alunoId,
+          serie: serie,
+          turma: turma,
+          dataMatricula: new Date().toLocaleDateString()
+        };
+        matriculas.push(matricula);
+        localStorage.setItem('matriculas', JSON.stringify(matriculas));
+        alert('Matrícula realizada com sucesso!');
+      }
+
+      // Função para exibir as matrículas
+      function exibirMatriculas() {
+        const matriculasList = document.getElementById('matriculasList');
+        matriculasList.innerHTML = '';
+        matriculas.forEach(matricula => {
+          const aluno = alunos.find(a => a.id == matricula.alunoId);
+          const listItem = document.createElement('li');
+          listItem.textContent = `${aluno.nome} - Série: ${matricula.serie} - Turma: ${matricula.turma} - Data: ${matricula.dataMatricula}`;
+          matriculasList.appendChild(listItem);
+        });
+      }
+
+      // Validação do formulário
+      function validarFormulario() {
+        const aluno = document.getElementById('aluno').value;
+        const serie = document.getElementById('serie').value;
+        const turma = document.getElementById('turma').value;
+
+        if (!aluno || !serie || !turma) {
+          alert('Por favor, preencha todos os campos.');
+          return false;
+        }
+        return true;
+      }
+
+      // Ao submeter o formulário
+      const matriculaForm = document.getElementById('matriculaForm');
+      matriculaForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (validarFormulario()) {
+          const alunoId = document.getElementById('aluno').value;
+          const serie = document.getElementById('serie').value;
+          const turma = document.getElementById('turma').value;
+          registrarMatricula(alunoId, serie, turma);
+          matriculaForm.reset();
+        }
+      });
+
+      // Exibe as matrículas quando a página carregar
+      exibirMatriculas();
+    });
+  </script>
 
 </body>
 
